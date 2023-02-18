@@ -1,6 +1,18 @@
 package openai
 
-func MakeEmbedding(s string) []float64 {
-	// TODO: implement me with API call
-	return []float64{}
+type OpenaiClient struct {
+	apikey string
+}
+
+// Returns vector embeddings for given text
+func (c *OpenaiClient) Embed(text string) ([]float64, error) {
+	key := c.apikey
+
+	return createEmbedding(text, key)
+}
+
+func NewOpenaiClient(key string) OpenaiClient {
+	return OpenaiClient{
+		apikey: key,
+	}
 }
