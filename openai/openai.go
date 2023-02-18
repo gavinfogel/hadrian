@@ -11,6 +11,12 @@ func (c *OpenaiClient) Embed(text string) ([]float64, error) {
 	return createEmbedding(text, key)
 }
 
+func (c *OpenaiClient) Complete(text string) (string, error) {
+	key := c.apikey
+
+	return createCompletion(text, key)
+}
+
 func NewOpenaiClient(key string) OpenaiClient {
 	return OpenaiClient{
 		apikey: key,

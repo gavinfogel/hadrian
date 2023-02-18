@@ -19,13 +19,11 @@ func main() {
 
 	oai := openai.NewOpenaiClient(openaiApiKey)
 
-	vec, err := oai.Embed("hello I am gavin the idiot")
+	completedText, err := oai.Complete("Give the best choice of the following foods: pizza, wings, hotdogs, or salad: ")
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println(vec)
-
-	fmt.Println("I am a golang project")
+	fmt.Println(completedText)
 }
