@@ -46,8 +46,9 @@ type _CompletionResponse struct {
 // Turns string into proper request body format
 func makeCompletionRequestBody(prompt string) []byte {
 	reqBody, err := json.Marshal(map[string]interface{}{
-		"model":  "text-davinci-003", // Most expensive best model
-		"prompt": prompt,
+		"model":      "text-davinci-003", // Most expensive best model
+		"prompt":     prompt,
+		"max_tokens": 2048,
 	})
 
 	if err != nil {
@@ -71,6 +72,10 @@ func createCompletion(text string, key string) (string, error) {
 	_, resBody, err := openAIhttp.request("POST", completion_url, b, key) // maybe todo: catch error here
 
 	response := parseCompletionResponseBody(resBody)
+
+	if len(response.Choices) == 0 {
+		return "", err
+	}
 
 	return response.Choices[0].Text, err
 }
